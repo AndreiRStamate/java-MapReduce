@@ -1,0 +1,35 @@
+Tema 2 APD
+
+Stamate Robert Andrei 335CC
+______________________________________________________________________________
+
+Tema2.java:
+    Se analizeaza argumentele date in linia de comanda;
+    Se pornesc workerii pentru etapa de Map;
+    Se asteapta terminarea etapei de Map (tpe.awaitTermination());
+    Se pornesc workerii pentru etapa de Result avand ca argumente colectiile
+        create in etapa de Map;
+    Se asteapta terminarea etapei de Reduce (tpe2.awaitTermination());
+    Se sorteaza rezultatele din Reduce si se afiseaza conform cerintei.
+    
+MapCallable.java:
+    Fiecare thread parcurge portiunea de fisier alocata lui - pleaca de la
+        offset ( sau de la offset-1 pentru un offset > 0) si :
+            - verifica daca se afla in interiorul unui cuvant (caz in care
+            sare peste el);
+            - scrie "fragmentSize" caractere (se considera si cele "sarite"
+            in verificarea precizata anterior);
+            - verifica daca se afla in interiorul unui cuvant (caz in care
+            il scrie pe tot).
+    
+    Dictionarul partial (lungime, numar_aparitii) si lista de cuvinte de
+        lungime maximala sunt returnate ca o variabila de tip MapResult.
+
+ReduceCallable.java:
+    Fiecare thread primeste toate rezultatele din etapa de MapResult si
+        combina doar colectiile din fisierul atribuit lui.
+    
+    Se calculeaza rangul fisierelor dupa formula
+        (suma(1, n) din fib(lungime_k + 1) * nr_aparitii_k) / numar_cuv_total.
+    
+    Se returneaza rezultatele intr-o variabila de tip ReduceResult.
